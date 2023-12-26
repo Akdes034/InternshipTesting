@@ -3,52 +3,91 @@ import 'package:flutter/material.dart';
 class ThirdScreen extends StatelessWidget {
   final List<Map<String, String>> users = [
     {
-      'name': 'John Doe',
-      'email': 'johndoe@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
     {
-      'name': 'Jane Smith',
-      'email': 'janesmith@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
     {
-      'name': 'Alice Johnson',
-      'email': 'alicejohnson@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
     {
-      'name': 'Bob Williams',
-      'email': 'bobwilliams@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
     {
-      'name': 'Emily Brown',
-      'email': 'emilybrown@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
     {
-      'name': 'Michael Davis',
-      'email': 'michaeldavis@example.com',
+      'name': 'FirstName LastName',
+      'email': 'EMAIL@EMAIL.COM',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Layar Ketiga'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey,
+                width: 0.5,
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0.0),
+            child: AppBar(
+              title: _buildAppBarTitle(),
+              centerTitle: true,
+              elevation: 0,
+            ),
+          ),
+        ),
       ),
       body: ListView.builder(
-        itemCount: users.length,
+        itemCount: users.length * 2 - 1,
         itemBuilder: (BuildContext context, int index) {
+          if (index.isOdd) {
+            return Divider();
+          }
+          final itemIndex = index ~/ 2;
           return ListTile(
-            leading: Icon(Icons.person),
-            title: Text(users[index]['name']!),
-            subtitle: Text(users[index]['email']!),
+            leading: CircleAvatar(
+              backgroundImage: AssetImage('assets/profile.png'),
+              radius: 20,
+            ),
+            title: Text(
+              users[itemIndex]['name']!,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(
+              users[itemIndex]['email']!,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back),
+    );
+  }
+  Widget _buildAppBarTitle() {
+    return Text(
+      'Third Screen',
+      style: TextStyle(
+        fontSize: 20.0,
       ),
     );
   }
